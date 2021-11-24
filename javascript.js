@@ -77,6 +77,8 @@ function getCoins(page,perPage) {
 				let priceChange1h = coins[i].priceChange1h;
 				let priceChange1d = coins[i].priceChange1d;
 				let priceChange1w = coins[i].priceChange1w;
+				let twitterUrl = coins[i].twitterUrl;
+				let exp = coins[i].exp;
 
 				//Changement de couleur
 				let back = "";
@@ -97,6 +99,13 @@ function getCoins(page,perPage) {
 				cryptoCoins += `<td id="price1h_${id}" class="pos neg ${" "+back}"> ${priceChange1h} %  </td>`;
 				cryptoCoins += `<td id="price1d_${id}" class="pos neg ${" "+back}"> ${priceChange1d} %  </td>`;
 				cryptoCoins += `<td id="price1w_${id}" class="pos neg ${" "+back}"> ${priceChange1w} %  </td>`;
+				cryptoCoins += `<td> <a href="${twitterUrl}" title="${twitterUrl}"> Twitter </a></td>`;
+
+				if(exp){
+					for (let i = 0; i < exp.length; i++){
+						cryptoCoins += `<td> <a href="${exp[i]}">Link ${i}</a> </td>`;
+					}
+				}
 				cryptoCoins += '</tr>';
 				document.getElementById("data").innerHTML = cryptoCoins;
 
@@ -128,4 +137,49 @@ function getCoins(page,perPage) {
 			alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
 		})
 }
+
+
+//Tableau des monnaies fiat
+function getFiats() {
+	// Construction de l'URL, en utilisant le nombre de page si défini
+	let url = "https://api.coinstats.app/public/v1/fiats";
+	// Définition de l'appel Ajax
+	$.ajax({
+		//L'URL de la requête
+		url: url,
+		//La méthode d'envoi
+		method: "GET",
+		//Le format de réponse attendu
+		dataType: "json",
+	})
+		//Ce code sera exécuté en cas de succès - La réponse du serveur est passée à done()
+		.done(function (response) {
+			let fiats = response;
+			let cryptofiats = "";
+			for (let i = 0; i < fiats.length; i++) {
+				//Var pour voir si .priceChange1h est négatif ou positif, retourne -1 si negatif
+				//let price1h = Math.sign(coins[i].priceChange1h);
+
+				//Variable de l'api
+				let name = fiats[i].name;
+				let rate = fiats[i].rate;
+				let symbol = fiats[i].symbol;
+				let imageUrl = fiats[i].imageUrl;
+
+				//Construction tableau
+				cryptofiats += '<tr>';
+				cryptofiats += `<td> <img src="${imageUrl}"></td>`;
+				cryptofiats += `<td> ${name} </td>`;
+				cryptofiats += `<td> ${rate} </td>`;
+				cryptofiats += `<td> ${symbol} </td>`;
+				cryptofiats += '</tr>';
+				document.getElementById("data_fiats").innerHTML = cryptofiats;
+			}
+		})
+		//Ce code sera exécuté en cas d'échec - L'erreur est passée à fail()
+		.fail(function (error) {
+			alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
+		})
+}
+getFiats();
 
