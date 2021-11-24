@@ -66,21 +66,18 @@ function getCoins(page,perPage) {
 
 				//Var pour voir si .priceChange1h est négatif ou positif, retourne -1 si negatif
 				let price1h = Math.sign(coins[i].priceChange1h);
-				let price = Math.round(coins[i].price * 200) / 100
-				console.log(price);
 
 				//Variable de l'api
 				let id = coins[i].id;
 				let rank = coins[i].rank;
 				let name = coins[i].name;
 				let icon = coins[i].icon;
-				//let price = coins[i].price;
+				let price = coins[i].price;
 				let volume = coins[i].volume;
 				let priceChange1h = coins[i].priceChange1h;
 				let priceChange1d = coins[i].priceChange1d;
 				let priceChange1w = coins[i].priceChange1w;
-				let twitterUrl = coins[i].twitterUrl;
-				let exp = coins[i].exp;
+
 				//Changement de couleur
 				let back = "";
 				if (price1h === -1 ){
@@ -100,21 +97,8 @@ function getCoins(page,perPage) {
 				cryptoCoins += `<td id="price1h_${id}" class="pos neg ${" "+back}"> ${priceChange1h} %  </td>`;
 				cryptoCoins += `<td id="price1d_${id}" class="pos neg ${" "+back}"> ${priceChange1d} %  </td>`;
 				cryptoCoins += `<td id="price1w_${id}" class="pos neg ${" "+back}"> ${priceChange1w} %  </td>`;
-				cryptoCoins += `<td>  <a href="${twitterUrl}" class="fa fa-twitter"></a> </td>`;
-				//Peut etre le mettre dans une popup ?
-				if (exp){
-					for(let i = 0; i < exp.length; i++) {
-						cryptoCoins += `<td>  <a href="${exp[i]}">lien ${i}</a> </td>`;
-						console.log(exp[i])
-					}
-				}
-
-
 				cryptoCoins += '</tr>';
 				document.getElementById("data").innerHTML = cryptoCoins;
-				
-				//AJOUTER LA PAGINATION
-
 
 				// let myTd = document.querySelector("#price1h_" + id);
 				// myTd.style.backgroundColor = "#d93600";
