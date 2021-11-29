@@ -4,7 +4,7 @@ On veux pour chaque crypto :
 - Son logo
 - Le prix actuel en euro avec 4 deciaml max ( voir pour changer de color quand sa baisse ou monte)
 
-
+test modif 
 
 let callBackGetSuccess = function (data) {
     console.log(data.coins[1]);
