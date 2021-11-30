@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
@@ -34,19 +32,24 @@
         <div class="content">
 
 <div class="ui-widget">
+
+    <input type="text" id="valsearch" placeholder="Recherche par nom ..." />
     <select name="perPage" id="perPage">
         <option selected="selected" value="10"  id="10"> 10 </option>
         <option value="15" id="15"> 15 </option>
         <option value="20" id="20"> 20 </option>
         <option value="25" id="25"> 25 </option>
     </select>
-    <input type="text" id="valsearch" placeholder="Recherche par nom ..." />
+
     <button type="button"  id="search">Rechercher</button>
     <button type="button" id="renit">Rénitialiser</button>
-    <input type="radio" selected id="type_euro"/>
-    <input type="radio" id="type_usd"/>
-</div>
+    <select id="type_fiat">
 
+        <option value="EUR">Euro</option>
+        <option value="USD">USD</option>
+
+    </select>
+</div>
 
 <div style="overflow-x:auto;">
             <table class="table" id="table">

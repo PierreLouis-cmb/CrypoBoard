@@ -3,6 +3,7 @@ $(document).ready(function () {
 	let page = 0;
 	let perPage = 0;
 	let val_recherche = "";
+	let type_fiat="EUR"
 
 	//Variable pour récuperer des éléments HTML
 	$next = $('#next');
@@ -11,9 +12,10 @@ $(document).ready(function () {
 	$recherche = $('#search');
 	$renit = $('#renit');
 	$back.hide();
-	$input_serarch = $("#valsearch").val()
+	$input_serarch = $("#valsearch").val();
+	$type_fiat=$('#type_fiat');
 	perPage = $selectPage.val();
-
+	type_fiat = $type_fiat.val();
 
 
 	//Sélécteur nombre de résultat par page
@@ -62,15 +64,21 @@ $(document).ready(function () {
 		getAllCoins()
 	});
 
+	$type_fiat.on('click', function () {
+		type_fiat = $type_fiat.val();
+		console.log(type_fiat)
+		getCoins(page, perPage,type_fiat);
+	})
+
 //Appels des api
-	getCoins(page, perPage);
+	getCoins(page, perPage,type_fiat);
 	getFiats();
 });
 
-function getCoins(page, perPage) {
+function getCoins(page, perPage,type_fiat) {
 	// Construction de l'URL, en utilisant le nombre d'élement par page à afficher et la pagination
 	let url = "https://api.coinstats.app/public/v1/coins";
-	url += "?skip=" + page + "&limit=" + perPage + "&currency=EUR";
+	url += "?skip=" + page + "&limit=" + perPage + "&currency=" + type_fiat ;
 	console.log(url);
 	// Définition de l'appel Ajax
 	$.ajax({
