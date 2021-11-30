@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <title>Crypto dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script src ="jquery-3.5.1.js"></script>
+    <script src="javascript.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <h1>Crypto dashboard</h1>
+    <p>Proof of concept</p>
+</div>
+
+<div class="navbar">
+
+    <a href="#" class="right"></a>
+</div>
+
+
+    <div class="main">
+        <h2>Cryptomonnaies</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="content">
+
+<div class="ui-widget">
+
+    <input type="text" id="valsearch" placeholder="Recherche par nom ..." />
+    <select name="perPage" id="perPage">
+        <option selected="selected" value="10"  id="10"> 10 </option>
+        <option value="15" id="15"> 15 </option>
+        <option value="20" id="20"> 20 </option>
+        <option value="25" id="25"> 25 </option>
+    </select>
+
+    <button type="button"  id="search">Rechercher</button>
+    <button type="button" id="renit">Rénitialiser</button>
+    <select id="type_fiat">
+
+        <option value="EUR">Euro</option>
+        <option value="USD">USD</option>
+
+    </select>
+</div>
+
+<div style="overflow-x:auto;">
+            <table class="table" id="table">
+                <thead class="thead-light">
+                <!--    Nom des coll-->
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Volume</th>
+                    <th scope="col">1h %</th>
+                    <th scope="col">1d %</th>
+                    <th scope="col">1w %</th>
+                    <th scope="col">Plus d'informations</th>
+
+                </tr>
+                </thead>
+                <tbody id ="data">
+                </tbody>
+            </table>
+</div>
+
+            <div class="bloc_btn">
+                <button type="button" class="btn previous" id="back">Page précédente</button>
+                <button type="button" class="btn next" id="next">Page Suivant</button>
+            </div>
+
+        </div>
+        <h2>Monnaie fiat</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div style="overflow-x:auto;">
+            <table class="table" id="table_fiats">
+                <thead class="thead-light">
+                <!--    Nom des coll-->
+                <tr>
+                    <th scope="col">Pays</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Valeur</th>
+                    <th scope="col">Symbol</th>
+                </tr>
+                </thead>
+                <tbody id ="data_fiats">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <h2>Projet JavaScript/jQuery Webtech n3</h2>
+    <h3>COMBEAU Pierre-Louis</h3>
+</div>
+
+</body>
+</html>
+
+
+
+
+
