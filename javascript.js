@@ -15,13 +15,14 @@ $(document).ready(function () {
 	$input_serarch = $("#valsearch").val();
 	$type_fiat=$('#type_fiat');
 	perPage = $selectPage.val();
-	type_fiat = $type_fiat.val();
 
 
 	//Sélécteur nombre de résultat par page
-	$selectPage.on('click', function () {
+	$selectPage.change(function () {
 		perPage = $selectPage.val();
-		getCoins(page, perPage, val_recherche)
+		type_fiat = $type_fiat.val();
+		console.log(type_fiat);
+		getCoins(page, perPage,type_fiat);
 	})
 	$selectPage.val();
 	console.log($selectPage.val());
@@ -32,7 +33,7 @@ $(document).ready(function () {
 	$next.on('click', function () {
 		console.log("Page suivante");
 		page += 10;
-		getCoins(page, perPage, val_recherche);
+		getCoins(page, perPage,type_fiat);
 		$back.show();
 	});
 
@@ -40,7 +41,7 @@ $(document).ready(function () {
 	$back.on('click', function () {
 		console.log("Page précendente");
 		page -= 10;
-		getCoins(page, perPage, val_recherche);
+		getCoins(page, perPage,type_fiat);
 		if (page === 0) {
 			$back.hide();
 		}
@@ -48,13 +49,20 @@ $(document).ready(function () {
 
 	//Recherche Crypto
 	$recherche.on('click', function () {
+		type_fiat = $type_fiat.val();
+
 		let val_recherche = $("#valsearch").val()
-		getCoin(val_recherche);
+		//Cacher btn suivant
+		$next.hide();
+		//Cacher btn select
+		$('#perPage').hide();
+
+		getCoin(val_recherche,type_fiat);
 	});
 
 	//Rénitialiser le filtre
 	$renit.on('click', function () {
-		getCoins(page, perPage)
+		getCoins(page, perPage,type_fiat)
 		$("#valsearch").val("")
 	})
 
@@ -64,11 +72,12 @@ $(document).ready(function () {
 		getAllCoins()
 	});
 
-	$type_fiat.on('click', function () {
+	$type_fiat.change(function () {
 		type_fiat = $type_fiat.val();
-		console.log(type_fiat)
 		getCoins(page, perPage,type_fiat);
+
 	})
+
 
 //Appels des api
 	getCoins(page, perPage,type_fiat);
@@ -176,10 +185,10 @@ function getCoins(page, perPage,type_fiat) {
 		})
 }
 
-function getCoin(val_recherche) {
+function getCoin(val_recherche,type_fiat) {
 	// Construction de l'URL, en utilisant le nombre de page si défini
 	let url = "https://api.coinstats.app/public/v1/coins/";
-	url += val_recherche;
+	url += val_recherche + "?currency=" + type_fiat
 	// Définition de l'appel Ajax
 	$.ajax({
 		//L'URL de la requête
@@ -198,7 +207,7 @@ function getCoin(val_recherche) {
 			try {
 				//Var pour voir si .priceChange1h est négatif ou positif, retourne -1 si negatif
 				let price1h = Math.sign(coin.priceChange1h);
-				let price = Math.round(coin.price * 200) / 100
+				let price = coin.price.toFixed(4)
 				console.log(price);
 
 				//Variable de l'api
@@ -282,7 +291,7 @@ function getFiats() {
 
 				//Variable de l'api
 				let name = fiats[i].name;
-				let rate = fiats[i].rate;
+				let rate = fiats[i].rate.toFixed(4);
 				let symbol = fiats[i].symbol;
 				let imageUrl = fiats[i].imageUrl;
 

@@ -44,7 +44,9 @@ body {
     overflow-x: hidden;
 }
 
-
+#type_fiat{
+    float: right;
+}
 
 .sidenav a {
     color: white;
@@ -76,14 +78,13 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
 
 
 .table {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ddd;
-    font-size: 18px;
+    /*font-size: 18px;*/
     background-color:white;
 }
 
