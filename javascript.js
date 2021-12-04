@@ -7,11 +7,11 @@ $(document).ready(function () {
 
 	//Variable pour récuperer des éléments HTML
 	$next = $('#next');
-	$back = $('#back');
+	$color = $('#color');
 	$selectPage = $('#perPage');
 	$recherche = $('#search');
 	$renit = $('#renit');
-	$back.hide();
+	$color.hide();
 	$input_serarch = $("#valsearch").val();
 	$type_fiat=$('#type_fiat');
 	perPage = $selectPage.val();
@@ -24,39 +24,41 @@ $(document).ready(function () {
 		console.log(type_fiat);
 		getCoins(page, perPage,type_fiat);
 	})
+
 	$selectPage.val();
-	console.log($selectPage.val());
-
-
 
 	//Page suivante
 	$next.on('click', function () {
 		console.log("Page suivante");
-		page += 10;
+		page += 10; //si je veux adapter le nombre ne page à passer par rapport on nombre de résulat par page, metre la variable perPage
 		getCoins(page, perPage,type_fiat);
-		$back.show();
+		//Vérif si le btn color est déja en mode hide
+		if($('#color').is(":visible")) {
+
+		}
+		else{
+			$color.show();
+		}
 	});
 
 	//Revenir sur la page d'avant
-	$back.on('click', function () {
+	$color.on('click', function () {
 		console.log("Page précendente");
-		page -= 10;
+		page -= perPage;
 		getCoins(page, perPage,type_fiat);
 		if (page === 0) {
-			$back.hide();
+			$color.hide();
 		}
 	});
 
 	//Recherche Crypto
 	$recherche.on('click', function () {
 		type_fiat = $type_fiat.val();
-
 		let val_recherche = $("#valsearch").val()
 		//Cacher btn suivant
 		$next.hide();
 		//Cacher btn select
 		$('#perPage').hide();
-
 		getCoin(val_recherche,type_fiat);
 	});
 
@@ -64,6 +66,7 @@ $(document).ready(function () {
 	$renit.on('click', function () {
 		getCoins(page, perPage,type_fiat)
 		$("#valsearch").val("")
+		$('#perPage').show();
 	})
 
 
@@ -72,23 +75,23 @@ $(document).ready(function () {
 		getAllCoins()
 	});
 
+	//Changement de EUR à USD
 	$type_fiat.change(function () {
 		type_fiat = $type_fiat.val();
 		getCoins(page, perPage,type_fiat);
 
 	})
 
-
-//Appels des api
+	//Appels des api
 	getCoins(page, perPage,type_fiat);
 	getFiats();
 });
 
+
 function getCoins(page, perPage,type_fiat) {
-	// Construction de l'URL, en utilisant le nombre d'élement par page à afficher et la pagination
+	// Construction de l'URL, en utilisant le nombre d'élement par page à afficher,la pagination et si eur ou USD
 	let url = "https://api.coinstats.app/public/v1/coins";
 	url += "?skip=" + page + "&limit=" + perPage + "&currency=" + type_fiat ;
-	console.log(url);
 	// Définition de l'appel Ajax
 	$.ajax({
 		//L'URL de la requête
@@ -116,7 +119,6 @@ function getCoins(page, perPage,type_fiat) {
 				let rank = coins[i].rank;
 				let name = coins[i].name;
 				let icon = coins[i].icon;
-				//let price = coins[i].price;
 				let volume = coins[i].volume;
 				let priceChange1h = coins[i].priceChange1h;
 				let priceChange1d = coins[i].priceChange1d;
@@ -124,28 +126,18 @@ function getCoins(page, perPage,type_fiat) {
 				let twitterUrl = coins[i].twitterUrl;
 				let exp = coins[i].exp;
 				let websiteUrl = coins[i].websiteUrl;
+
 				//Changement de couleur (Si négatif,positif ou neutre)
 				//init couleur
-
-
-				let back = "";
+				let color = "";
+				//Si Math.sign return ; -1 alors price négatif,1 price positif,0 price est neutre
 				if (price1h === -1) {
-					back = "red";
+					color = "red";
 				} else if (price1h === 1) {
-					back = "green"
+					color = "green"
 				} else {
-					back = "black"
+					color = "black"
 				}
-				// $("#search").on("keyup", function () {
-				// 	var regval = new RegExp('^' + $(this).val(), "i");
-				//
-				// 	$("table tr:gt(1)").hide()
-				// 	$("table tr:gt(1)").filter(function () {
-				// 		var contenu = $(this).find('td:eq(1)').html();
-				// 		return contenu.match(regval);
-				// 	}).show();
-				// })
-				//test
 
 				//Construction tableau
 				tabCoins += '<tr>';
@@ -153,16 +145,16 @@ function getCoins(page, perPage,type_fiat) {
 				tabCoins += `<td> <a href ="${websiteUrl}" title="Site officiel"><img src="${icon}" class="logo">${name}</a></td>`;
 				tabCoins += `<td> ${price} </td>`;
 				tabCoins += `<td> ${volume} </td>`;
-				//Poser la variable back dans la classe pour changer la couleur
-				tabCoins += `<td id="price1h_${id}" class="pos neg ${" " + back}"> ${priceChange1h} %  </td>`;
-				tabCoins += `<td id="price1d_${id}" class="pos neg ${" " + back}"> ${priceChange1d} %  </td>`;
-				tabCoins += `<td id="price1w_${id}" class="pos neg ${" " + back}"> ${priceChange1w} %  </td>`;
-				tabCoins += `<td>  <a href="${twitterUrl}" class="fa fa-twitter"></a> </td>`;
+				//Poser la variable color dans la classe pour changer la couleur
+				tabCoins += `<td id="price1h_${id}" class="pos neg ${" " + color}"> ${priceChange1h} %  </td>`;
+				tabCoins += `<td id="price1d_${id}" class="pos neg ${" " + color}"> ${priceChange1d} %  </td>`;
+				tabCoins += `<td id="price1w_${id}" class="pos neg ${" " + color}"> ${priceChange1w} %  </td>`;
+				tabCoins += `<td class="img_td">  <a href="${twitterUrl}"> <img src="img/twitter.png"> </a></td>`;
 
 				//Affichage des liens exp
 				if (exp) {
 					for (let i = 0; i < exp.length; i++) {
-						tabCoins += `<td>  <a href="${exp[i]}">lien ${i}</a></td>`;
+						tabCoins += `<td> <a href="${exp[i]}"><img src="img/link.png"></a> </td>`;
 					}
 					// cryptoCoins += `</div> <button type="button" id="btn_${id}"> VOIR</button></td>`
 				}
@@ -223,46 +215,41 @@ function getCoin(val_recherche,type_fiat) {
 				let twitterUrl = coin.twitterUrl;
 				let exp = coin.exp;
 				//Changement de couleur
-				let back = "";
+				let color = "";
 				if (price1h === -1) {
-					back = "red";
+					color = "red";
 				} else if (price1h === 1) {
-					back = "green"
+					color = "green"
 				} else {
-					back = "black"
+					color = "black"
 				}
-				//test
-				//console.log($.inArray('Bitcoin',coins[i].name));
 				//Construction tableau
 				tabCoin += '<tr>';
 				tabCoin += `<td> ${rank} </td>`;
 				tabCoin += `<td> <img src="${icon}" class="logo">${name} </td>`;
 				tabCoin += `<td> ${price} </td>`;
 				tabCoin += `<td> ${volume} </td>`;
-				//Poser la variable back dans la classe pour changer la couleur
-				tabCoin += `<td id="price1h_${id}" class="pos neg ${" " + back}"> ${priceChange1h} %  </td>`;
-				tabCoin += `<td id="price1d_${id}" class="pos neg ${" " + back}"> ${priceChange1d} %  </td>`;
-				tabCoin += `<td id="price1w_${id}" class="pos neg ${" " + back}"> ${priceChange1w} %  </td>`;
-				tabCoin += `<td>  <a href="${twitterUrl}" class="fa fa-twitter"></a> </td>`;
-				//Peut etre le mettre dans une popup ?
+				//Poser la variable color dans la classe pour changer la couleur
+				tabCoin += `<td id="price1h_${id}" class="pos neg ${" " + color}"> ${priceChange1h} %  </td>`;
+				tabCoin += `<td id="price1d_${id}" class="pos neg ${" " + color}"> ${priceChange1d} %  </td>`;
+				tabCoin += `<td id="price1w_${id}" class="pos neg ${" " + color}"> ${priceChange1w} %  </td>`;
+				tabCoin += `<td>  <a href="${twitterUrl}"><img src="img/twitter.png"></a> </td>`;
+
+				//lister les liens si il y en a
 				if (exp) {
 					for (let i = 0; i < exp.length; i++) {
 						tabCoin += `<td>  <a href="${exp}">lien ${i}</a> </td>`;
-						//console.log(exp[i])
 					}
 				}
-
-
 				tabCoin += '</tr>';
 				document.getElementById("data").innerHTML = tabCoin;
 			} catch (e) {
 
 				alert("Aucun résultat(s) trouvé(s) pour cette saisie")
-				//getCoins()
 			}
 
 		})
-		//Ce code sera exécuté en cas d'échec - L'erreur est passée à fail()
+		//Ce code sera exécuté en cas d'échec de la req - L'erreur est passée à fail()
 		.fail(function (error) {
 			alert("La requête s'est terminée en échec. Infos : " + JSON.stringify(error));
 		})
@@ -297,8 +284,7 @@ function getFiats() {
 
 				//Construction tableau
 				tabfiats += '<tr>';
-				tabfiats += `<td> <img src="${imageUrl}" class="logo"></td>`;
-				tabfiats += `<td> ${name} </td>`;
+				tabfiats += `<td> <img src="${imageUrl}" class="logo">${name}</td>`;
 				tabfiats += `<td> ${rate} </td>`;
 				tabfiats += `<td> ${symbol} </td>`;
 				tabfiats += '</tr>';

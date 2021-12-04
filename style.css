@@ -9,19 +9,6 @@
 .black {
     color: black;
 }
-
-.fa {
-    padding: 20px;
-    font-size: 30px;
-    width: 50px;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 2px;
-}
-.fa-twitter {
-    background: #55ACEE;
-    color: white;
-}
 /*Body*/
 * {
     box-sizing: border-box;
@@ -31,12 +18,9 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
-
-
 .sidenav {
     height: 100%;
     width: 100%;
-    /*position: fixed;*/
     z-index: 1;
     top: 0;
     left: 0;
@@ -62,10 +46,6 @@ body {
 
 /* Style content */
 
-
-body {
-    background-color:#D6DBDF;
-}
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -77,8 +57,36 @@ th, td {
     text-align: left;
     padding: 8px;
 }
+.img_td{
+    text-align: center !important;
+}
 
+#search,
+#next,
+#back,
+#perPage,
+#type_fiat{
+    background-color: #00679d;
+    color: white;
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+#valsearch{
 
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: solid 1px #00679d;
+}
+#renit{
+    background-color: #00679d;
+    color: white;
+    padding: 5px 8px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
 
 .table {
     border-collapse: collapse;
@@ -120,6 +128,7 @@ a{
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    background-color:#D6DBDF;
 }
 
 /* Style the header */
@@ -199,13 +208,6 @@ body {
 .next,
 .previous{
     display: block;
-    border: none;
-    background-color: #04AA6D;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    margin:1rem;
 }
 
 .bloc_btn{

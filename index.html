@@ -2,15 +2,12 @@
 <html>
 <head>
     <title>Crypto dashboard</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="style.css" rel="stylesheet">
     <script src ="jquery-3.5.1.js"></script>
     <script src="javascript.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 </head>
 <body>
@@ -21,14 +18,12 @@
 </div>
 
 <div class="navbar">
-
     <a href="#" class="right"></a>
 </div>
 
 
     <div class="main">
         <h2>Cryptomonnaies</h2>
-        <h5>Title description, Dec 7, 2017</h5>
         <div class="content">
 
 <div class="ui-widget">
@@ -64,6 +59,7 @@
                     <th scope="col">1d %</th>
                     <th scope="col">1w %</th>
                     <th scope="col">Plus d'informations</th>
+                    <th scope="col"></th>
 
                 </tr>
                 </thead>
@@ -74,18 +70,16 @@
 
             <div class="bloc_btn">
                 <button type="button" class="btn previous" id="back">Page précédente</button>
-                <button type="button" class="btn next" id="next">Page Suivant</button>
+                <button type="button" class="btn next" id="next">Page Suivante</button>
             </div>
 
         </div>
-        <h2>Monnaie fiat</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <div style="overflow-x:auto;">
+        <h2>Monnaies fiat</h2>
+        <div style="overflow-x:auto;width: 25rem;">
             <table class="table" id="table_fiats">
                 <thead class="thead-light">
                 <!--    Nom des coll-->
                 <tr>
-                    <th scope="col">Pays</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Valeur</th>
                     <th scope="col">Symbol</th>
