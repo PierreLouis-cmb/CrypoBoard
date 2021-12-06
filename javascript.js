@@ -7,11 +7,11 @@ $(document).ready(function () {
 
 	//Variable pour récuperer des éléments HTML
 	$next = $('#next');
-	$color = $('#color');
+	$back = $('#back');
 	$selectPage = $('#perPage');
 	$recherche = $('#search');
 	$renit = $('#renit');
-	$color.hide();
+	$back.hide();
 	$input_serarch = $("#valsearch").val();
 	$type_fiat=$('#type_fiat');
 	perPage = $selectPage.val();
@@ -33,21 +33,21 @@ $(document).ready(function () {
 		page += 10; //si je veux adapter le nombre ne page à passer par rapport on nombre de résulat par page, metre la variable perPage
 		getCoins(page, perPage,type_fiat);
 		//Vérif si le btn color est déja en mode hide
-		if($('#color').is(":visible")) {
+		if($('#back').is(":visible")) {
 
 		}
 		else{
-			$color.show();
+			$back.show();
 		}
 	});
 
 	//Revenir sur la page d'avant
-	$color.on('click', function () {
+	$back.on('click', function () {
 		console.log("Page précendente");
 		page -= perPage;
 		getCoins(page, perPage,type_fiat);
 		if (page === 0) {
-			$color.hide();
+			$back.hide();
 		}
 	});
 
